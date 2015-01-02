@@ -1,4 +1,5 @@
-﻿using DeltaEpsilon.Engine.Utils;
+﻿using DeltaEpsilon.Engine.Input;
+using DeltaEpsilon.Engine.Utils;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -24,6 +25,12 @@ namespace DeltaEpsilon.Engine
         {
             Log.Print("Initializing Graphics");
             new Graphics();
+        }
+
+        public void InitializeInput()
+        {
+            Log.Print("Initializing Input");
+            new InputController();
         }
 
         public Stopwatch timer = new Stopwatch();
@@ -57,6 +64,7 @@ namespace DeltaEpsilon.Engine
 
             Graphics.RenderWindow.DispatchEvents();
 
+            InputController.Instance?.Update();
             Update();
 
             updateDelta = ((float)timer.Elapsed.TotalMilliseconds / 1000f);

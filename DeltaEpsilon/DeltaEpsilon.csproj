@@ -56,6 +56,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Engine\Graphics.cs" />
+    <Compile Include="Engine\Input\InputController.cs" />
+    <Compile Include="Engine\Input\Keyboard.cs" />
+    <Compile Include="Engine\Input\Keycode.cs" />
+    <Compile Include="Engine\Input\Mouse.cs" />
     <Compile Include="Engine\Utils\Configuration.cs" />
     <Compile Include="Engine\Utils\GraphicsHelper.cs" />
     <Compile Include="Engine\Utils\MathUtils.cs" />

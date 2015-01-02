@@ -1,4 +1,5 @@
-﻿using SFML.Graphics;
+﻿using DeltaEpsilon.Engine.Input;
+using SFML.Graphics;
 using SFML.Window;
 using System;
 using System.Collections.Generic;
@@ -32,13 +33,7 @@ namespace DeltaEpsilon.Engine
             window.SetKeyRepeatEnabled(false);
             window.Closed += delegate { window.Close(); App.AppInstance.isRunning = false; };
 
-            //_window.KeyPressed += Input.instance.KeyPressed;
-            //_window.KeyReleased += Input.instance.KeyReleased;
-            //_window.GainedFocus += Input.instance.GainedFocus;
-            //_window.LostFocus += Input.instance.LostFocus;
-            //_window.MouseButtonPressed += Input.instance.MouseButtonPressed;
-            //_window.MouseButtonReleased += Input.instance.MouseButtonReleased;
-            //_window.MouseWheelMoved += Input.instance.MouseWheelMoved;
+            InputController.Instance.InitWindow(window);
 
             window.Resized += (sender, e) =>
             {

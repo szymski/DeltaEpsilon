@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DeltaEpsilon.Engine.Utils
 {
-    public class Screen
+    public sealed class Screen
     {
         public static int Width => (int)Graphics.RenderWindow.Size.X;
         public static int Height => (int)Graphics.RenderWindow.Size.Y;

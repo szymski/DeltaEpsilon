@@ -1,4 +1,5 @@
 ﻿using DeltaEpsilon.Engine;
+using DeltaEpsilon.Engine.Input;
 using DeltaEpsilon.Engine.Utils;
 using System;
 using System.Collections.Generic;
@@ -14,9 +15,12 @@ namespace Test.Source
         public TestGame()
         {
             Initialize();
+            InitializeInput();
             InitializeGraphics();
             Run();
         }
+
+        float asd = 0;
 
         public override void Render()
         {
@@ -24,14 +28,14 @@ namespace Test.Source
             GraphicsHelper.SetupOrtho();
 
             glColor3f(1, 0, 0);
-            GraphicsHelper.DrawQuad(0, 0, 256, 256);
+            GraphicsHelper.DrawQuad(asd, 0, 256, 256);
 
             Graphics.RenderWindow.Display();
         }
 
         public override void Update()
         {
-            
+            asd += (Keyboard.GetKey(KeyCode.D) ? 1 : -1) * Time.DeltaTime * 100;
         }
     }
 }
