@@ -30,7 +30,6 @@ namespace DeltaEpsilon.Engine
             window = new RenderWindow(new VideoMode((uint)App.AppInstance.Configuration.GetOrDefault("width", 1280), (uint)App.AppInstance.Configuration.GetOrDefault("height", 720)), "DeltaEpsilon", Styles.Default, contextSettings);
             window.SetActive(true);
             window.SetFramerateLimit(120);
-            window.SetKeyRepeatEnabled(false);
             window.Closed += delegate { window.Close(); App.AppInstance.isRunning = false; };
 
             InputController.Instance.InitWindow(window);

@@ -27,6 +27,13 @@ namespace DeltaEpsilon.Engine
             new Graphics();
         }
 
+        public void InitializeAudio()
+        {
+            Log.Print("Initializing Audio");
+            new AudioController();
+            Audio.Instance = new Audio();
+        }
+
         public void InitializeInput()
         {
             Log.Print("Initializing Input");
@@ -62,10 +69,12 @@ namespace DeltaEpsilon.Engine
         {
             timer.Start();
 
+            InputController.Instance?.Update();
             Graphics.RenderWindow.DispatchEvents();
 
-            InputController.Instance?.Update();
             Update();
+
+            AudioController.Instance?.Update();
 
             updateDelta = ((float)timer.Elapsed.TotalMilliseconds / 1000f);
 

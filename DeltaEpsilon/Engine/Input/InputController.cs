@@ -16,6 +16,7 @@ namespace DeltaEpsilon.Engine.Input
 
         public void InitWindow(SFML.Window.Window window)
         {
+            window.SetKeyRepeatEnabled(false);
             window.KeyPressed += KeyPressed;
             window.KeyReleased += KeyReleased;
             window.GainedFocus += GainedFocus;

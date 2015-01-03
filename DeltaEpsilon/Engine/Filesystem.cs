@@ -56,7 +56,7 @@ namespace DeltaEpsilon.Engine
             {
                 return File.ReadAllBytes("data/" + filename);
             }
-            foreach (FileInfo info in instance.files)
+            foreach (FileInfo info in Instance.files)
             {
                 if (info.name == filename)
                 {
@@ -78,7 +78,7 @@ namespace DeltaEpsilon.Engine
             {
                 return File.ReadAllText("data/" + filename);
             }
-            foreach (FileInfo info in instance.files)
+            foreach (FileInfo info in Instance.files)
             {
                 if (info.name == filename)
                 {
@@ -100,7 +100,7 @@ namespace DeltaEpsilon.Engine
             {
                 return File.OpenRead("data/" + filename);
             }
-            foreach (FileInfo info in instance.files)
+            foreach (FileInfo info in Instance.files)
             {
                 if (info.name == filename)
                 {
@@ -116,10 +116,11 @@ namespace DeltaEpsilon.Engine
             throw new FileNotFoundException("Can not find " + filename + " in any package!");
         }
 
-        static FS instance = new FS();
+        public static FS Instance = new FS();
 
         public FS()
         {
+            if (!Directory.Exists("packages")) return;
             foreach (string filename in Directory.GetFiles("packages"))
             {
                 FileStream stream = File.OpenRead(filename);

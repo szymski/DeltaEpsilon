@@ -1,10 +1,11 @@
-﻿using System;
+﻿using DeltaEpsilon.Engine.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DeltaEpsilon.Engine.Utils
+namespace DeltaEpsilon.Engine
 {
     public sealed class Screen
     {

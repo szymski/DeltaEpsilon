@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DeltaEpsilon.Engine.Input
+namespace DeltaEpsilon.Engine
 {
     public enum KeyCode
     {

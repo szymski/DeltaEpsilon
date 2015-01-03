@@ -55,6 +55,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Engine\Audio\Audio.cs" />
+    <Compile Include="Engine\Audio\AudioController.cs" />
     <Compile Include="Engine\Graphics.cs" />
     <Compile Include="Engine\Input\InputController.cs" />
     <Compile Include="Engine\Input\Keyboard.cs" />

@@ -17,10 +17,9 @@ namespace Test.Source
             Initialize();
             InitializeInput();
             InitializeGraphics();
+            InitializeAudio();
             Run();
         }
-
-        float asd = 0;
 
         public override void Render()
         {
@@ -28,14 +27,21 @@ namespace Test.Source
             GraphicsHelper.SetupOrtho();
 
             glColor3f(1, 0, 0);
-            GraphicsHelper.DrawQuad(asd, 0, 256, 256);
+            GraphicsHelper.DrawQuad(0, 0, 256, 256);
 
             Graphics.RenderWindow.Display();
         }
 
         public override void Update()
         {
-            asd += (Keyboard.GetKey(KeyCode.D) ? 1 : -1) * Time.DeltaTime * 100;
+            if(Mouse.GetButtonDown(0))
+            {
+                Audio.PlaySound("test1.wav");
+            }
+            if (Mouse.GetButtonDown(1))
+            {
+                Audio.PlaySound("test2.wav");
+            }
         }
     }
 }
