@@ -9,6 +9,27 @@ namespace DeltaEpsilon.Engine.Utils
     [Serializable]
     public class Vector2
     {
+        bool Equals(Vector2 other)
+        {
+            return x == other.x && y == other.y;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((Vector2) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                return (x.GetHashCode()*397) ^ y.GetHashCode();
+            }
+        }
+
         public float x = 0;
         public float y = 0;
 

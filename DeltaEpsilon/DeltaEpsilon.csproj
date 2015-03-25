@@ -21,6 +21,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
+    <LangVersion>6</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -31,6 +32,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="OpenTK, Version=1.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\OpenTK.dll</HintPath>
+    </Reference>
     <Reference Include="sfmlnet-audio-2">
       <HintPath>..\sfmlnet-audio-2.dll</HintPath>
     </Reference>
@@ -49,10 +54,6 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="Tao.OpenGl, Version=2.1.0.12, Culture=neutral, PublicKeyToken=1ca010269a4501ef, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Tao.OpenGl.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Engine\Audio\Audio.cs" />
@@ -65,7 +66,9 @@
     <Compile Include="Engine\Utils\Configuration.cs" />
     <Compile Include="Engine\Utils\GraphicsHelper.cs" />
     <Compile Include="Engine\Utils\MathUtils.cs" />
+    <Compile Include="Engine\Utils\RenderTarget.cs" />
     <Compile Include="Engine\Utils\Screen.cs" />
+    <Compile Include="Engine\Utils\Texture.cs" />
     <Compile Include="Engine\Utils\Time.cs" />
     <Compile Include="Engine\Utils\Vector2.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

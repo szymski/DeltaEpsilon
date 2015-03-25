@@ -18,14 +18,14 @@ namespace DeltaEpsilon.Engine
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine(obj);
             all.Add(obj.ToString());
-            File.AppendAllText("log.txt", "<\{DateTime.Now.ToString()}> \{obj}\n");
+            File.AppendAllText("log.txt", @"<\{DateTime.Now.ToString()}> \{obj}\n");
         }
 
         public static void PrintError(object obj)
         {
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("\n" + obj);
-            File.AppendAllText("log.txt", "<\{DateTime.Now.ToString()}> ERROR! \{obj.ToString()}\n");
+            File.AppendAllText("log.txt", @"<\{DateTime.Now.ToString()}> ERROR! \{obj.ToString()}\n");
         }
     }
 }

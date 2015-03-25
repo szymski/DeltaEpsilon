@@ -26,8 +26,11 @@ namespace Test.Source
             Graphics.RenderWindow.Clear();
             GraphicsHelper.SetupOrtho();
 
-            glColor3f(1, 0, 0);
-            GraphicsHelper.DrawQuad(0, 0, 256, 256);
+            Graphics.LoadTexture("lol.png").Bind();
+
+            glColor3f(1, 1, (Time.Millis/1000f)%1);
+            glEnable(GL_TEXTURE_2D);
+            GraphicsHelper.DrawQuadWithUV(0, 0, 256, 256);
 
             Graphics.RenderWindow.Display();
         }

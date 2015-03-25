@@ -92,10 +92,11 @@ namespace DeltaEpsilon.Engine.Utils
             foreach (string s in keys.Keys)
             {
                 if (keys[s] is string)
-                    lines += s + " = \"\{keys[s].ToString()}\"\n";
+                    lines += s + $" = \"{keys[s].ToString()}\"\n";
                 else
-                    lines += s + " = \{keys[s].ToString().ToLower()}\n";
+                    lines += s + $" = {keys[s].ToString().ToLower()}\n";
             }
+
             return lines;
         }
 

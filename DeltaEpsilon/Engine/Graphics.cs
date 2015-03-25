@@ -20,6 +20,8 @@ namespace DeltaEpsilon.Engine
 
         public void CreateWindow()
         {
+            new OpenTK.GameWindow();
+
             ContextSettings contextSettings = new ContextSettings()
             {
                 MajorVersion = 255,
@@ -40,6 +42,15 @@ namespace DeltaEpsilon.Engine
                 App.AppInstance.Configuration["height"] = e.Height;
                 window.SetView(new SFML.Graphics.View(new FloatRect(0, 0, e.Width, e.Height)));
             };
+        }
+
+        Dictionary<string, Utils.Texture> textures = new Dictionary<string, Utils.Texture>(); 
+
+        public static Utils.Texture GetTexture(string filename)
+        {
+            if (!Instance.textures.ContainsKey(filename))
+                Instance.textures.Add(filename, new Utils.Texture(FS.CreateStream(filename)));
+            return Instance.textures[filename];
         }
 
         public static RenderWindow RenderWindow => Instance.window;
