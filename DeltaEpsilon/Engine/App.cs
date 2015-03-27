@@ -60,7 +60,10 @@ namespace DeltaEpsilon.Engine
             timer2.Start();
             timer3.Start();
 
-            while (isRunning) Loop();
+            if(Graphics.Instance != null)
+                while (isRunning) Loop();
+            else
+                while (isRunning) ServerLoop();
 
             Close();
         }
@@ -79,6 +82,30 @@ namespace DeltaEpsilon.Engine
             updateDelta = ((float)timer.Elapsed.TotalMilliseconds / 1000f);
 
             Render();
+
+            time += (float)timer.Elapsed.TotalMilliseconds;
+            millis = timer3.ElapsedMilliseconds;
+            if (timer2.ElapsedMilliseconds >= 1000)
+            {
+                FPS = ticks;
+                time -= 1000;
+                ticks = 0;
+                timer2.Restart();
+
+            }
+
+            deltaTime = ((float)timer.Elapsed.TotalMilliseconds / 1000f);
+            timer.Reset();
+            ticks++;
+        }
+
+        public void ServerLoop()
+        {
+            timer.Start();
+
+            Update();
+
+            updateDelta = ((float)timer.Elapsed.TotalMilliseconds / 1000f);
 
             time += (float)timer.Elapsed.TotalMilliseconds;
             millis = timer3.ElapsedMilliseconds;

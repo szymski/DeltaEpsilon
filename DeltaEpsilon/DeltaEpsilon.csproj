@@ -67,6 +67,7 @@
     <Compile Include="Engine\Utils\GraphicsHelper.cs" />
     <Compile Include="Engine\Utils\MathUtils.cs" />
     <Compile Include="Engine\Utils\RenderTarget.cs" />
+    <Compile Include="Engine\Utils\RenderTargetMultisample.cs" />
     <Compile Include="Engine\Utils\Screen.cs" />
     <Compile Include="Engine\Utils\Texture.cs" />
     <Compile Include="Engine\Utils\Time.cs" />
