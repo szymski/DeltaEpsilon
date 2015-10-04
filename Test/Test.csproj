@@ -35,6 +35,9 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="OpenTK">
+      <HintPath>C:\Users\Szymon\Documents\Visual Studio 2015\Projects\AudioPong\AudioPong\bin\Debug\OpenTK.dll</HintPath>
+    </Reference>
     <Reference Include="sfmlnet-audio-2, Version=2.1.0.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\sfmlnet-audio-2.dll</HintPath>

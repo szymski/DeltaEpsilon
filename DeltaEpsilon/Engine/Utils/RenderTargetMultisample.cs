@@ -24,13 +24,15 @@ namespace DeltaEpsilon.Engine.Utils
             // Generate new texture for FBO
             texId = GL.GenTexture();
             GL.BindTexture(TextureTarget.Texture2DMultisample, texId);
-           // GL.TexParameter(TextureTarget.Texture2DMultisample, TextureParameterName.TextureWrapS, (int)TextureWrapMode.Repeat);
-            //GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int)TextureWrapMode.Repeat);
-            //GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Nearest);
-            //GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Nearest);
-            //GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba8, width, height, 0, PixelFormat.Bgra, PixelType.UnsignedByte, (byte[])null);
-            GL.TexImage2DMultisample(TextureTargetMultisample.Texture2DMultisample, 4, PixelInternalFormat.Rgb, width, height, true);
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int)TextureWrapMode.Repeat);
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int)TextureWrapMode.Repeat);
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Nearest);
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Nearest);
+           // GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba8, width, height, 0, PixelFormat.Bgra, PixelType.UnsignedByte, (byte[])null);
+            GL.TexImage2DMultisample(TextureTargetMultisample.Texture2DMultisample, 4, PixelInternalFormat.Rgba, width, height, true);
             GL.BindTexture(TextureTarget.Texture2DMultisample, 0);
+
+            prevID = GL.GetInteger(GetPName.FramebufferBinding);
 
             // Generate FBO
             id = GL.GenFramebuffer();
@@ -44,11 +46,21 @@ namespace DeltaEpsilon.Engine.Utils
             GL.BindRenderbuffer(RenderbufferTarget.Renderbuffer, 0);
             GL.BindFramebuffer(FramebufferTarget.Framebuffer, id);
             GL.FramebufferRenderbuffer(FramebufferTarget.Framebuffer, FramebufferAttachment.DepthStencilAttachment, RenderbufferTarget.Renderbuffer, rbId);
+
+            GL.BindFramebuffer(FramebufferTarget.Framebuffer, prevID);
         }
+
+        int prevID = 0;
 
         public void Bind()
         {
+            prevID = GL.GetInteger(GetPName.FramebufferBinding);
             GL.BindFramebuffer(FramebufferTarget.Framebuffer, id);
+        }
+
+        public void UnBind()
+        {
+            GL.BindFramebuffer(FramebufferTarget.Framebuffer, prevID);
         }
 
         public void BindTexture()
@@ -70,13 +82,15 @@ namespace DeltaEpsilon.Engine.Utils
                 // Generate new texture for FBO
                 texId = GL.GenTexture();
                 GL.BindTexture(TextureTarget.Texture2DMultisample, texId);
-                // GL.TexParameter(TextureTarget.Texture2DMultisample, TextureParameterName.TextureWrapS, (int)TextureWrapMode.Repeat);
-                //GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int)TextureWrapMode.Repeat);
-                //GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Nearest);
-                //GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Nearest);
-                //GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba8, width, height, 0, PixelFormat.Bgra, PixelType.UnsignedByte, (byte[])null);
-                GL.TexImage2DMultisample(TextureTargetMultisample.Texture2DMultisample, 4, PixelInternalFormat.Rgb, width, height, true);
+                GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int)TextureWrapMode.Repeat);
+                GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int)TextureWrapMode.Repeat);
+                GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Nearest);
+                GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Nearest);
+                // GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba8, width, height, 0, PixelFormat.Bgra, PixelType.UnsignedByte, (byte[])null);
+                GL.TexImage2DMultisample(TextureTargetMultisample.Texture2DMultisample, 4, PixelInternalFormat.Rgba, width, height, true);
                 GL.BindTexture(TextureTarget.Texture2DMultisample, 0);
+
+                prevID = GL.GetInteger(GetPName.FramebufferBinding);
 
                 // Generate FBO
                 id = GL.GenFramebuffer();
@@ -90,6 +104,8 @@ namespace DeltaEpsilon.Engine.Utils
                 GL.BindRenderbuffer(RenderbufferTarget.Renderbuffer, 0);
                 GL.BindFramebuffer(FramebufferTarget.Framebuffer, id);
                 GL.FramebufferRenderbuffer(FramebufferTarget.Framebuffer, FramebufferAttachment.DepthStencilAttachment, RenderbufferTarget.Renderbuffer, rbId);
+
+                GL.BindFramebuffer(FramebufferTarget.Framebuffer, prevID);
             }
         }
     }

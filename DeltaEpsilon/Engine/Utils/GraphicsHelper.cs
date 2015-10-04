@@ -27,7 +27,7 @@ namespace DeltaEpsilon.Engine.Utils
         public static void DrawQuadWithUV(float x, float y, float w, float h)
         {
             GL.Begin(PrimitiveType.Quads);
-            GL.TexCoord2(0,0);
+            GL.TexCoord2(0, 0);
             GL.Vertex2(x, y);
             GL.TexCoord2(1, 0);
             GL.Vertex2(x + w, y);
@@ -45,9 +45,18 @@ namespace DeltaEpsilon.Engine.Utils
             GL.Disable(EnableCap.Texture2D);
         }
 
+        public static void DrawTexturedQuadTransparent(float x, float y, float w, float h)
+        {
+            GL.Enable(EnableCap.Blend);
+            GL.Enable(EnableCap.Texture2D);
+            DrawQuadWithUV(x, y, w, h);
+            GL.Disable(EnableCap.Texture2D);
+            GL.Disable(EnableCap.Blend);
+        }
+
         public static void DrawQuadWithClippedUV(float x, float y, float w, float h, float textureWidth, float textureHeight, float xOffset, float yOffset, float xSize, float ySize)
         {
-            GL.End();
+            GL.Begin(PrimitiveType.Quads);
             GL.TexCoord2(xOffset / textureWidth, yOffset / textureHeight);
             GL.Vertex2(x, y);
             GL.TexCoord2((xSize + xOffset) / textureWidth, yOffset / textureHeight);
@@ -62,12 +71,17 @@ namespace DeltaEpsilon.Engine.Utils
         public static void DrawOutlineQuad(float x, float y, float w, float h)
         {
             GL.Begin(PrimitiveType.LineStrip);
-            GL.Vertex2(x -1, y-1);
-            GL.Vertex2(x -1 + w+2, y-1);
-            GL.Vertex2(x -1 + w+2, y-1 + h+2);
-            GL.Vertex2(x -1, y-1 + h+2);
+            GL.Vertex2(x - 1, y - 1);
+            GL.Vertex2(x - 1 + w + 2, y - 1);
+            GL.Vertex2(x - 1 + w + 2, y - 1 + h + 2);
+            GL.Vertex2(x - 1, y - 1 + h + 2);
             GL.Vertex2(x - 1, y - 1);
             GL.End();
+        }
+
+        public static void Translate(Vector2 translation)
+        {
+            GL.Translate(translation.x, translation.y, 0);
         }
 
         public static void SetupFullscreenOrtho(int zNear = -1, int zFar = 1)
@@ -77,5 +91,25 @@ namespace DeltaEpsilon.Engine.Utils
             GL.Ortho(0, Screen.Width, Screen.Height, 0, zNear, zFar);
         }
 
+
+        public static void SetupPerspective(double fovy, double aspect, double zNear, double zFar)
+        {
+            double fW, fH;
+
+            fH = Math.Tan(fovy / 360 * Math.PI) * zNear;
+            fW = fH * aspect;
+
+
+            GL.MatrixMode(MatrixMode.Projection);
+            GL.LoadIdentity();
+            GL.Viewport(0, 0, Screen.Width, Screen.Height);
+            GL.Frustum(-fW, fW, -fH, fH, zNear, zFar);
+
+            GL.MatrixMode(MatrixMode.Modelview);
+            GL.Enable(EnableCap.DepthTest);
+            GL.DepthFunc(DepthFunction.Lequal);
+            GL.ShadeModel(ShadingModel.Smooth);
+            GL.Hint(HintTarget.PerspectiveCorrectionHint, HintMode.Nicest);
+        }
     }
 }

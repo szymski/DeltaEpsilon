@@ -55,7 +55,7 @@ namespace DeltaEpsilon.Engine
 
         public bool isRunning = true;
 
-        public void Run()
+        public virtual void Run()
         {
             timer2.Start();
             timer3.Start();
@@ -76,6 +76,7 @@ namespace DeltaEpsilon.Engine
             Graphics.RenderWindow.DispatchEvents();
 
             Update();
+            Timer.UpdateTimers();
 
             AudioController.Instance?.Update();
 
@@ -104,6 +105,7 @@ namespace DeltaEpsilon.Engine
             timer.Start();
 
             Update();
+            Timer.UpdateTimers();
 
             updateDelta = ((float)timer.Elapsed.TotalMilliseconds / 1000f);
 
@@ -132,6 +134,11 @@ namespace DeltaEpsilon.Engine
         public abstract void Update();
 
         public abstract void Render();
+
+        public virtual Vector2 GetWorldMousePosition()
+        {
+            return Mouse.Position;
+        }
 
         public static App AppInstance { get; private set; }
     }

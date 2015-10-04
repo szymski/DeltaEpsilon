@@ -4,6 +4,7 @@ using SFML.Window;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using OpenTK.Graphics.OpenGL;
 
 namespace DeltaEpsilon.Engine
 {
@@ -24,8 +25,8 @@ namespace DeltaEpsilon.Engine
 
             ContextSettings contextSettings = new ContextSettings()
             {
-                MajorVersion = 255,
-                MinorVersion = 255,
+                MajorVersion = 32,
+                MinorVersion = 32,
                 DepthBits = 32,
                 AntialiasingLevel = 4
             };
@@ -49,7 +50,11 @@ namespace DeltaEpsilon.Engine
         public static Utils.Texture GetTexture(string filename)
         {
             if (!Instance.textures.ContainsKey(filename))
+            {
+                int id = GL.GetInteger(GetPName.Texture2D);
                 Instance.textures.Add(filename, new Utils.Texture(FS.CreateStream(filename)));
+                GL.BindTexture(TextureTarget.Texture2D, id);
+            }
             return Instance.textures[filename];
         }
 

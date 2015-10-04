@@ -50,6 +50,11 @@ namespace DeltaEpsilon.Engine
 
         List<FileInfo> files = new List<FileInfo>();
 
+        /// <summary>
+        /// Reads entire file to byte array.
+        /// </summary>
+        /// <param name="filename">The name of file.</param>
+        /// <returns>Byte array.</returns>
         public static byte[] ReadAllBytes(string filename)
         {
             if (File.Exists("data/" + filename))
@@ -72,6 +77,11 @@ namespace DeltaEpsilon.Engine
             throw new FileNotFoundException("Can not find " + filename + " in any package!");
         }
 
+        /// <summary>
+        /// Reads entire file as text.
+        /// </summary>
+        /// <param name="filename">The name of file.</param>
+        /// <returns>File text.</returns>
         public static string ReadAllText(string filename)
         {
             if (File.Exists("data/" + filename))
@@ -94,6 +104,11 @@ namespace DeltaEpsilon.Engine
             throw new FileNotFoundException("Can not find " + filename + " in any package!");
         }
 
+        /// <summary>
+        /// Creates a stream to specified file.
+        /// </summary>
+        /// <param name="filename">The name of file.</param>
+        /// <returns>File stream.</returns>
         public static Stream CreateStream(string filename)
         {
             if (File.Exists("data/" + filename))
@@ -114,6 +129,25 @@ namespace DeltaEpsilon.Engine
             }
             MessageBox.Show("Can not find " + filename + " in any package!", "DeltaEpsilon", MessageBoxButtons.OK, MessageBoxIcon.Error);
             throw new FileNotFoundException("Can not find " + filename + " in any package!");
+        }
+
+        /// <summary>
+        /// Returns a list of files at specified path.
+        /// </summary>
+        /// <param name="path">Path.</param>
+        /// <returns>File list.</returns>
+        public static List<string> GetFiles(string path)
+        {
+            var list = new List<string>();
+
+            if (Directory.Exists("data/" + path))
+                foreach (var filename in new DirectoryInfo("data/" + path).GetFiles().Select(f => f.Name))
+                    list.Add(filename);
+
+            foreach (var filename in Instance.files.Where(f => f.name.IndexOf(path) == 0).Select(f => f.name))
+                list.Add(filename);
+
+            return list;
         }
 
         public static FS Instance = new FS();

@@ -27,6 +27,11 @@ namespace DeltaEpsilon.Engine.Utils
             return value;
         }
 
+        public static float Lerp(float t, float from, float to)
+        {
+            return (1 - t) * from + t * to;
+        }
+
         static Random random = new Random();
 
         public static float Random(float min, float max)

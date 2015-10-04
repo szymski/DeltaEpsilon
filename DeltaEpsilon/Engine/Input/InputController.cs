@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SFML.Window;
 
 namespace DeltaEpsilon.Engine.Input
 {
@@ -24,6 +25,7 @@ namespace DeltaEpsilon.Engine.Input
             window.MouseButtonPressed += MouseButtonPressed;
             window.MouseButtonReleased += MouseButtonReleased;
             window.MouseWheelMoved += MouseWheelMoved;
+            window.MouseMoved += MouseMoved;
         }
 
         enum KeyState { None, Down, Up }
@@ -33,16 +35,28 @@ namespace DeltaEpsilon.Engine.Input
         Dictionary<int, KeyState> mouseButtons = new Dictionary<int, KeyState>();
 
         internal int mouseWhellDelta = 0;
-        internal bool focused = true;
+
+        internal bool mouseCursorVisible = true;
+
+        internal bool _focused;
+        internal bool Focused
+        {
+            get { return _focused; }
+            set
+            {
+                _focused = value;
+                Graphics.RenderWindow.SetMouseCursorVisible(!value || mouseCursorVisible);
+            }
+        }
 
         public void GainedFocus(object sender, EventArgs e)
         {
-            focused = true;
+            Focused = true;
         }
 
         public void LostFocus(object sender, EventArgs e)
         {
-            focused = false;
+            Focused = false;
         }
 
         public void KeyPressed(object sender, EventArgs e)
@@ -61,8 +75,14 @@ namespace DeltaEpsilon.Engine.Input
             mouseWhellDelta = e.Delta;
         }
 
+        public void MouseMoved(object sender, SFML.Window.MouseMoveEventArgs e)
+        {
+
+        }
+
         public void MouseButtonPressed(object sender, EventArgs e)
         {
+            Focused = true;
             SetMouseButton((int)((SFML.Window.MouseButtonEventArgs)e).Button, KeyState.Down);
         }
 
@@ -95,41 +115,57 @@ namespace DeltaEpsilon.Engine.Input
             else return KeyState.None;
         }
 
+        public bool fps;
+        public Vector2 acceleration = new Vector2();
+
         public void Update()
         {
             keys.Clear();
             pressedKeys.Clear();
             mouseButtons.Clear();
             mouseWhellDelta = 0;
+
+            if (Focused && fps)
+            {
+                acceleration.x = Screen.Width / 2 - MousePosition.x;
+                acceleration.y = Screen.Height / 2 - MousePosition.y;
+                Graphics.RenderWindow.InternalSetMousePosition(new Vector2i(Screen.Width/2, Screen.Height/2));
+            }
         }
 
         public bool GetKeyDown(KeyCode key)
         {
+            if (!Focused) return false;
             return (_GetKey(key) == KeyState.Down);
         }
 
         public bool GetKey(KeyCode key)
         {
+            if (!Focused) return false;
             return SFML.Window.Keyboard.IsKeyPressed((SFML.Window.Keyboard.Key)key);
         }
 
         public bool GetKeyUp(KeyCode key)
         {
+            if (!Focused) return false;
             return (_GetKey(key) == KeyState.Up);
         }
 
         public bool GetMouseButtonDown(int button)
         {
+            if (!Focused) return false;
             return (_GetMouseButton(button) == KeyState.Down);
         }
 
         public bool GetMouseButton(int button)
         {
+            if (!Focused) return false;
             return SFML.Window.Mouse.IsButtonPressed((SFML.Window.Mouse.Button)Enum.ToObject(typeof(SFML.Window.Mouse.Button), button));
         }
 
         public bool GetMouseButtonUp(int button)
         {
+            if (!Focused) return false;
             return (_GetMouseButton(button) == KeyState.Up);
         }
 

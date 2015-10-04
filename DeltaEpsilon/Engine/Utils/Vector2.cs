@@ -22,14 +22,6 @@ namespace DeltaEpsilon.Engine.Utils
             return Equals((Vector2) obj);
         }
 
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                return (x.GetHashCode()*397) ^ y.GetHashCode();
-            }
-        }
-
         public float x = 0;
         public float y = 0;
 
@@ -44,7 +36,7 @@ namespace DeltaEpsilon.Engine.Utils
             this.y = y;
         }
 
-        public float length
+        public float Length
         {
             get
             {
@@ -52,7 +44,7 @@ namespace DeltaEpsilon.Engine.Utils
             }
         }
 
-        public float angle
+        public float Angle
         {
             get
             {
@@ -60,7 +52,7 @@ namespace DeltaEpsilon.Engine.Utils
             }
         }
 
-        public Vector2 floored
+        public Vector2 Floored
         {
             get
             {
@@ -68,7 +60,7 @@ namespace DeltaEpsilon.Engine.Utils
             }
         }
 
-        public Vector2 rounded
+        public Vector2 Rounded
         {
             get
             {
@@ -76,11 +68,11 @@ namespace DeltaEpsilon.Engine.Utils
             }
         }
 
-        public Vector2 normalized
+        public Vector2 Normalized
         {
             get
             {
-                float len = length;
+                float len = Length;
                 return new Vector2(x/len, y/len);
             }
         }
@@ -103,6 +95,11 @@ namespace DeltaEpsilon.Engine.Utils
         public static Vector2 operator /(Vector2 v1, float value)
         {
             return new Vector2(v1.x / value, v1.y / value);
+        }
+
+        public static Vector2 operator -(Vector2 v1)
+        {
+            return new Vector2(-v1.x, -v1.y);
         }
 
         public static bool operator ==(Vector2 v1, Vector2 v2)
