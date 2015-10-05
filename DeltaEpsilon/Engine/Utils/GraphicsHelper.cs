@@ -79,6 +79,14 @@ namespace DeltaEpsilon.Engine.Utils
             GL.End();
         }
 
+        public static void DrawLine(float x, float y, float x2, float y2)
+        {
+            GL.Begin(PrimitiveType.Lines);
+            GL.Vertex2(x, y);
+            GL.Vertex2(x2, y2);
+            GL.End();
+        }
+
         public static void Translate(Vector2 translation)
         {
             GL.Translate(translation.x, translation.y, 0);
