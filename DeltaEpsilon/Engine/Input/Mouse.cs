@@ -31,6 +31,9 @@ namespace DeltaEpsilon.Engine
         /// <returns></returns>
         public static bool GetButtonDown(int button) => InputController.Instance.GetMouseButtonDown(button);
 
+        public static void DisableButton(int button) => InputController.Instance.disabledButtons.Add(button);
+
+
         public static bool FPS
         {
             get { return InputController.Instance.fps; }

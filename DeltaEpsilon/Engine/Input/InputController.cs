@@ -28,11 +28,13 @@ namespace DeltaEpsilon.Engine.Input
             window.MouseMoved += MouseMoved;
         }
 
-        enum KeyState { None, Down, Up }
+        internal enum KeyState { None, Down, Up }
 
         Dictionary<KeyCode, KeyState> keys = new Dictionary<KeyCode, KeyState>();
         internal List<KeyCode> pressedKeys = new List<KeyCode>();
-        Dictionary<int, KeyState> mouseButtons = new Dictionary<int, KeyState>();
+        internal Dictionary<int, KeyState> mouseButtons = new Dictionary<int, KeyState>();
+
+        internal List<int> disabledButtons = new List<int>(); 
 
         internal int mouseWhellDelta = 0;
 
@@ -124,12 +126,13 @@ namespace DeltaEpsilon.Engine.Input
             pressedKeys.Clear();
             mouseButtons.Clear();
             mouseWhellDelta = 0;
+            disabledButtons.Clear();
 
             if (Focused && fps)
             {
                 acceleration.x = Screen.Width / 2 - MousePosition.x;
                 acceleration.y = Screen.Height / 2 - MousePosition.y;
-                Graphics.RenderWindow.InternalSetMousePosition(new Vector2i(Screen.Width/2, Screen.Height/2));
+                Graphics.RenderWindow.InternalSetMousePosition(new Vector2i(Screen.Width / 2, Screen.Height / 2));
             }
         }
 
@@ -154,19 +157,19 @@ namespace DeltaEpsilon.Engine.Input
         public bool GetMouseButtonDown(int button)
         {
             if (!Focused) return false;
-            return (_GetMouseButton(button) == KeyState.Down);
+            return (_GetMouseButton(button) == KeyState.Down) && !disabledButtons.Contains(button);
         }
 
         public bool GetMouseButton(int button)
         {
             if (!Focused) return false;
-            return SFML.Window.Mouse.IsButtonPressed((SFML.Window.Mouse.Button)Enum.ToObject(typeof(SFML.Window.Mouse.Button), button));
+            return SFML.Window.Mouse.IsButtonPressed((SFML.Window.Mouse.Button)Enum.ToObject(typeof(SFML.Window.Mouse.Button), button)) && !disabledButtons.Contains(button);
         }
 
         public bool GetMouseButtonUp(int button)
         {
             if (!Focused) return false;
-            return (_GetMouseButton(button) == KeyState.Up);
+            return (_GetMouseButton(button) == KeyState.Up) && !disabledButtons.Contains(button);
         }
 
         public Vector2 MousePosition
