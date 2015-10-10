@@ -11,7 +11,8 @@ namespace DeltaEpsilon.Engine
 {
     public abstract class App
     {
-        public Configuration Configuration { get; private set; }
+        public Configuration Configuration
+        { get; private set; }
 
         public void Initialize()
         {
@@ -40,6 +41,8 @@ namespace DeltaEpsilon.Engine
             new InputController();
         }
 
+        protected Scene scene;
+
         public Stopwatch timer = new Stopwatch();
         public Stopwatch timer2 = new Stopwatch();
         public Stopwatch timer3 = new Stopwatch();
@@ -60,10 +63,12 @@ namespace DeltaEpsilon.Engine
             timer2.Start();
             timer3.Start();
 
-            if(Graphics.Instance != null)
-                while (isRunning) Loop();
+            if (Graphics.Instance != null)
+                while (isRunning)
+                    Loop();
             else
-                while (isRunning) ServerLoop();
+                while (isRunning)
+                    ServerLoop();
 
             Close();
         }
@@ -131,15 +136,39 @@ namespace DeltaEpsilon.Engine
             Configuration.SaveToFile("config.cfg");
         }
 
-        public abstract void Update();
+        /// <summary>
+        /// Calls scene update by default.
+        /// </summary>
+        public virtual void Update()
+        {
+            scene?.Update();
+        }
 
-        public abstract void Render();
+        /// <summary>
+        /// Calls scene render by default.
+        /// </summary>
+        public virtual void Render()
+        {
+            scene?.Render();
+        }
 
         public virtual Vector2 GetWorldMousePosition()
         {
             return Mouse.Position;
         }
 
-        public static App AppInstance { get; private set; }
+        public static Scene CurrentScene
+        {
+            get { return AppInstance.scene; }
+            set
+            {
+                AppInstance.scene?.OnExit();
+                AppInstance.scene = value;
+                value.OnChange();
+            }
+        }
+
+        public static App AppInstance
+        { get; private set; }
     }
 }
