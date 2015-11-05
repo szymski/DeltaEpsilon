@@ -65,7 +65,7 @@ namespace DeltaEpsilon.Engine.Utils
 
         public void BindTexture()
         {
-            GL.BindTexture(TextureTarget.Texture2D, texId);
+            GL.BindTexture(TextureTarget.Texture2DMultisample, texId);
         }
 
         public void SetSize(int w, int h)

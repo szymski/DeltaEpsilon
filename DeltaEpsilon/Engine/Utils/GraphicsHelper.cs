@@ -7,7 +7,7 @@ using OpenTK.Graphics.OpenGL;
 
 namespace DeltaEpsilon.Engine.Utils
 {
-    public class GraphicsHelper
+    public partial class GraphicsHelper
     {
         public static void Enable2DTexture() => GL.Enable(EnableCap.Texture2D);
         public static void Enable2DTextureB() { GL.Enable(EnableCap.Texture2D); GL.Enable(EnableCap.Blend); }
@@ -84,6 +84,14 @@ namespace DeltaEpsilon.Engine.Utils
             GL.Begin(PrimitiveType.Lines);
             GL.Vertex2(x, y);
             GL.Vertex2(x2, y2);
+            GL.End();
+        }
+
+        public static void DrawLine(Vector2 startPos, Vector2 endPos)
+        {
+            GL.Begin(PrimitiveType.Lines);
+            GL.Vertex2(startPos.x, startPos.y);
+            GL.Vertex2(endPos.x, endPos.y);
             GL.End();
         }
 

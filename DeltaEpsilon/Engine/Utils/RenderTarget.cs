@@ -88,6 +88,8 @@ namespace DeltaEpsilon.Engine.Utils
                 GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba8, width, height, 0, PixelFormat.Bgra, PixelType.UnsignedByte, (byte[])null);
                 GL.BindTexture(TextureTarget.Texture2D, 0);
 
+                prevID = GL.GetInteger(GetPName.FramebufferBinding);
+
                 // Generate FBO
                 id = GL.GenFramebuffer();
                 GL.BindFramebuffer(FramebufferTarget.Framebuffer, id);
@@ -100,6 +102,8 @@ namespace DeltaEpsilon.Engine.Utils
                 GL.BindRenderbuffer(RenderbufferTarget.Renderbuffer, 0);
                 GL.BindFramebuffer(FramebufferTarget.Framebuffer, id);
                 GL.FramebufferRenderbuffer(FramebufferTarget.Framebuffer, FramebufferAttachment.DepthStencilAttachment, RenderbufferTarget.Renderbuffer, rbId);
+
+                GL.BindFramebuffer(FramebufferTarget.Framebuffer, prevID);
             }
         }
     }

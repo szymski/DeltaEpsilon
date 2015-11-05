@@ -38,5 +38,20 @@ namespace DeltaEpsilon.Engine.Utils
         {
             return min + (float)random.NextDouble() * (max - min);
         }
+
+        #region Vector functions
+
+        public static Vector2 Lerp(float t, Vector2 from, Vector2 to)
+        {
+            return (1 - t) * from + t * to;
+        }
+
+        public static Vector2 MoveTowards(float t, Vector2 from, Vector2 to)
+        {
+            Vector2 diff = to - from;
+            return from + diff.Normalized * t;
+        }
+
+        #endregion
     }
 }

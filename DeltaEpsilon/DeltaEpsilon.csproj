@@ -67,6 +67,7 @@
     <Compile Include="Engine\Utils\Angle.cs" />
     <Compile Include="Engine\Utils\Configuration.cs" />
     <Compile Include="Engine\Utils\GraphicsHelper.cs" />
+    <Compile Include="Engine\Utils\GraphicsHelperText.cs" />
     <Compile Include="Engine\Utils\MathUtils.cs" />
     <Compile Include="Engine\Utils\RenderTarget.cs" />
     <Compile Include="Engine\Utils\RenderTargetMultisample.cs" />
